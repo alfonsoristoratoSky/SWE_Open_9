@@ -6,8 +6,19 @@ class Person {
 
     childOf () {
         if (this.parents.length < 1) return "unknown"
-        else return `${this.parents[0]} & ${this.parents[1]}` 
-    
+        else return `${this.parents[0]} & ${this.parents[1]}`     
+    }
+
+    title() {
+        let nameArray = this.name.split(' ')
+        if (
+            nameArray[0] === 'King' || 
+            nameArray[0] === 'Queen' ||
+            nameArray[0] === 'Prince' ||
+            nameArray[0] === 'Princess'   
+            )
+            return nameArray[0];
+        else return 'unknown'
     }
 }
 

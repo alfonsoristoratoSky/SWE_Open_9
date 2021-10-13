@@ -14,7 +14,7 @@ describe('person objects', () => {
     })
 
     test('is a class instance', () => {
-        expect(thirdGen[0]).toBeInstanceOf(Person);
+        expect(thirdGen[0]).toBeInstanceOf(Person)
     })
 
     test('person has no parents', () => {
@@ -27,6 +27,19 @@ describe('person objects', () => {
 
     test('object has property name', () => {
         expect(secondGen[0]).toHaveProperty('name')
+    })
+
+    //thought of via TDD
+    test('has a title', () => {
+        expect(secondGen[0].title()).toBe('Prince')
+    })
+
+    test('does not have a title', () => {
+        expect(thirdGen[0].title()).toBe('unknown')
+    })
+
+    test('double name stays unknown', () => {
+        expect(new Person('Mary Ann').title()).toBe('unknown')
     })
 })
 
