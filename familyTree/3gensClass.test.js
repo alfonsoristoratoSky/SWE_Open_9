@@ -5,6 +5,10 @@ describe('person objects', () => {
         expect(firstGen[0].name).toEqual("King Geroge VI")
     })
 
+    test('childOf return unknown', () => {
+        expect(firstGen[0].childOf()).toEqual("unknown")
+    })
+
     test('have a parent', () => {
         expect(secondGen[1].childOf()).toEqual("King Geroge VI & Queen Elizabeth")
     })
@@ -17,8 +21,12 @@ describe('person objects', () => {
         expect(thirdGen[0].parents[0]).toBeUndefined();
     })
 
-    test('array does not have Camilla', () => {
+    test('array does not contain Camilla', () => {
         expect(secondGen).not.toEqual(expect.arrayContaining([{"name": "Camilla", "parents": []}]));
+    })
+
+    test('object has property name', () => {
+        expect(secondGen[0]).toHaveProperty('name')
     })
 })
 

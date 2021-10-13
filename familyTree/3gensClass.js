@@ -35,7 +35,7 @@ thirdGen.push(
     new Person('Prince Edward', [secondGen[0].name, secondGen[1].name]), 
     );
 
-console.log(secondGen[1].childOf())
+// console.log(secondGen[1].childOf())
 
 module.exports = {
     firstGen,
