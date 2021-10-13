@@ -39,7 +39,7 @@ describe('person objects', () => {
     })
 
     test('double name stays unknown', () => {
-        expect(new Person('Mary Ann').title()).toBe('unknown')
+        expect(new Person('Mary Ann').title()).toBe('no title')
     })
 })
 

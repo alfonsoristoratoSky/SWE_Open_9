@@ -18,7 +18,7 @@ class Person {
             nameArray[0] === 'Princess'   
             )
             return nameArray[0];
-        else return 'unknown'
+        else return 'no title'
     }
 }
 
