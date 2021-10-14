@@ -19,7 +19,11 @@ describe('Bag tests', () => {
     })
 
     test('bag has no weight', () => {
-        expect(() => new Bag()).toThrowError('bag must have weight')
+        expect(() => new Bag()).toThrowError('bag must have a numerical weight')
+    })
+
+    test(`bag's weight must be a number`, () => {
+        expect(() => new Bag('a')).toThrowError(`bag must have a numerical weight`)
     })
 })
 

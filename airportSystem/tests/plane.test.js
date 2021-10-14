@@ -1,12 +1,14 @@
 const Plane = require('../plane')
 const Passenger = require ('../passenger')
 const CrewMember = require('../crewMember')
+const Bag = require('../bag')
 
 describe('crew member tests', () => {
 
     beforeAll(()=>{              
         passenger1 = new Passenger('Alfonso', 'YY1223', '25A');
-        passenger1.addBag(10);
+        bag1 = new Bag(10)
+        passenger1.addBag(bag1);
 
         crew1 = new CrewMember('Mark', 'Captain', 15)
         plane1 = new Plane('boeing');
@@ -33,6 +35,7 @@ describe('crew member tests', () => {
     test('plane crew member staff ID is 15', () => {
         expect(plane1.crewMembers[0].staffNumber).toBe(15)
     })
+    
 
 
 

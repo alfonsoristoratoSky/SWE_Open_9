@@ -1,15 +1,16 @@
 class Bag{
     constructor(weight){
         
-        if (weight == undefined){
-            throw new Error('bag must have weight')
+        if (weight == undefined || typeof weight != 'number'){
+            throw new Error('bag must have a numerical weight')
         }
+
         else {
             this.weight = weight
         }
     }
 
-    isOverLimit(_weight) {
+    isOverLimit() {
         if (this.weight > 20) return true
     }
 

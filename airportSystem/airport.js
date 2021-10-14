@@ -1,3 +1,5 @@
+const Plane = require('./plane')
+
 class Airport{
     constructor(name){
         if (name == undefined){
@@ -12,11 +14,17 @@ class Airport{
 
     }
     takingOff(plane){
-        this.planesTakingOff.push(plane)
+        if (typeof plane != typeof new Plane('boeing')) {
+            throw new Error(`must be an instance of Plane`)
+        }
+        else this.planesTakingOff.push(plane);
     }
 
     comingIn(plane){
-        this.planesArriving.push(plane)
+        if (typeof plane != typeof new Plane('boeing')) {
+            throw new Error(`must be an instance of Plane`)
+        }
+        else this.planesArriving.push(plane);
     }
 }
 

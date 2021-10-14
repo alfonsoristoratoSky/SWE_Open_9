@@ -1,3 +1,5 @@
+const Bag = require('./bag')
+
 class Passenger{
     constructor(name, passportNumber, seatNumber){
 
@@ -24,8 +26,12 @@ class Passenger{
 
     }
     addBag(bag){
-        this.bags.push(bag);
+        if (typeof bag != typeof new Bag(10) ) {
+            throw new Error(`must be an instance of bag`)
+        }
+        else this.bags.push(bag);
     }
+
 
 }
 

@@ -1,10 +1,14 @@
 const Passenger = require('../passenger')
+const Bag = require('../bag')
 
 describe('Passenger tests', () => {
     beforeAll(() => { 
         pass1 = new Passenger('Alfonso', 'yb11111', '24A');
-        pass2 = new Passenger('Daniel', 'aa098123', '25B')
-        pass1.addBag('large suitcase')
+        pass2 = new Passenger('Daniel', 'aa098123', '25B');
+        bag1 = new Bag(10)
+        pass1.addBag(new Bag(10))
+        
+        
     })
     
     test('passenger has name', () => {
@@ -21,7 +25,7 @@ describe('Passenger tests', () => {
                 "name":"Alfonso",
                 "passportNumber" : "yb11111",
                 "seatNumber" : "24A",
-                "bags" : ["large suitcase"],                
+                "bags" : [{"weight" : 10}],                
             }));
     })
 
@@ -36,5 +40,11 @@ describe('Passenger tests', () => {
     test('Passenger has no seat error', () => {
         expect(() => new Passenger('alfonso','passport', undefined)).toThrowError('missing seat')
     })
+
+    test('Passenger bag is not an instance of the class Bag', () => {
+        expect(() => new Passenger('Alfo','passport', 'seat').addBag(10)).toThrowError(`must be an instance of bag`)
+    })
+
+
 
 })
