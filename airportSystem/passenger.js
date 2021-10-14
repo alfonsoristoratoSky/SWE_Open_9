@@ -26,6 +26,7 @@ class Passenger{
     addBag(bag){
         this.bags.push(bag);
     }
+
 }
 
 module.exports = Passenger

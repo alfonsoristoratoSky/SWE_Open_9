@@ -1,4 +1,4 @@
-const Bag = require('./bag')
+const Bag = require('../bag')
 
 describe('Bag tests', () => {
     beforeAll(() => { 
