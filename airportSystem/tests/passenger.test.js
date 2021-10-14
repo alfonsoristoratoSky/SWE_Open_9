@@ -6,6 +6,7 @@ describe('Passenger tests', () => {
         pass1 = new Passenger('Alfonso', 'yb11111', '24A');
         pass2 = new Passenger('Daniel', 'aa098123', '25B');
         bag1 = new Bag(10)
+ 
         pass1.addBag(new Bag(10))
         
         
@@ -45,6 +46,9 @@ describe('Passenger tests', () => {
         expect(() => new Passenger('Alfo','passport', 'seat').addBag(10)).toThrowError(`must be an instance of bag`)
     })
 
+    test('there is an alert asking to pay extra if bag weight is higher than 22', () => {
+        expect(() => new Passenger('Alfo','passport', 'seat').addBag(new Bag(23))).toThrowError(`Needs to pay extra`)
+    })
 
 
 })

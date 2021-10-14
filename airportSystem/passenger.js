@@ -30,6 +30,9 @@ class Passenger{
             throw new Error(`must be an instance of bag`)
         }
         else this.bags.push(bag);
+        if (bag.weight > 22) {
+            throw new Error('Needs to pay extra')
+        }
     }
 
 
