@@ -6,10 +6,14 @@ class Plane{
         }
         this.type = type       
         this.passengers =[]
+        this.crewMembers = []
     }
     
     board(passenger){
         this.passengers.push(passenger)
+    }
+    boardCrew(crewMember){
+        this.crewMembers.push(crewMember)
     }
 
 }

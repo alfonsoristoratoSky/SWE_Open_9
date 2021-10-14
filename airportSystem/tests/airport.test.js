@@ -2,6 +2,7 @@ const Airport = require('../airport')
 const Plane = require('../plane')
 const Passenger = require ('../passenger')
 const Bag = require('../bag')
+const CrewMember = require('../crewMember')
 
 describe('airport tests', () => {
 
@@ -12,11 +13,13 @@ describe('airport tests', () => {
         plane2 = new Plane('Heli');
         passenger2 = new Passenger('Mark', 'AA1212', '1C');
         bag1 = new Bag(10);
+        crew1 = new CrewMember('John', 'cabin crew', 10)
         
         passenger2.addBag(bag1);
 
         plane1.board(passenger1);
         plane2.board(passenger2);
+        plane2.boardCrew(crew1);
 
         airport1.takingOff(plane1);
         airport1.comingIn(plane2);
@@ -39,15 +42,18 @@ describe('airport tests', () => {
         expect(airport1.planesTakingOff).toEqual(expect.objectContaining(
             [{
                 "passengers": [passenger1],
-                "type":"Boeing",              
+                "type":"Boeing",   
+                "crewMembers" : []           
             }]));
     })
 
-    test('airport has an array of planes objects coming in', () => {
+    test('airport has an array of planes coming in, which also has other arrays in ', () => {
         expect(airport1.planesArriving).toEqual(expect.objectContaining(
             [{
+                "crewMembers" : [crew1],
                 "passengers": [passenger2],
-                "type":"Heli",              
+                "type":"Heli",     
+                      
             }]));
     })
 
