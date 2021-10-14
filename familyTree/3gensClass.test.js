@@ -35,10 +35,10 @@ describe('person objects', () => {
     })
 
     test('does not have a title', () => {
-        expect(thirdGen[0].title()).toBe('unknown')
+        expect(thirdGen[0].title()).toBe('no title')
     })
 
-    test('double name stays unknown', () => {
+    test('double name does not have a title', () => {
         expect(new Person('Mary Ann').title()).toBe('no title')
     })
 })
