@@ -17,6 +17,7 @@ class Airport{
         Airport.airports.push(this);  
         this.id = Airport.idIncrement();
 
+
     }
     
     takingOff(plane){
@@ -24,6 +25,9 @@ class Airport{
             throw new Error(`must be an instance of Plane`)
         }
         else this.planesTakingOff.push(plane);
+        return plane.fly(this.name);
+            
+        
     }
 
     comingIn(plane){
@@ -43,6 +47,11 @@ class Airport{
         Airport.idCounter.push(tempId);
         return tempId;     
     }
+
+
+    
+
+
 
 }
 

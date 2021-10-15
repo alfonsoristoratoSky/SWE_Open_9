@@ -20,8 +20,10 @@ describe('airport tests', () => {
         plane1.board(passenger1);
         plane2.board(passenger2);
         plane2.boardCrew(crew1);
+        plane1.boardCrew(crew1);
 
         airport1.takingOff(plane1);
+        console.log(airport1.takingOff(plane1));
         airport1.comingIn(plane2);
         
     })
@@ -43,7 +45,7 @@ describe('airport tests', () => {
             [{
                 "passengers": [passenger1],
                 "type":"Boeing",   
-                "crewMembers" : []           
+                "crewMembers" : [crew1]           
             }]));
     })
 
@@ -88,15 +90,19 @@ describe('airport tests', () => {
     })
 
     test('new airport has an id of 3', () => {
-        expect(new Airport('third airport').id).toBe(3)
+        expect(new Airport('Stansted').id).toBe(3)
     })
 
     test('final new airport has an id of 4', () => {
-        expect(new Airport('third airport').id).toBe(4)
+        expect(new Airport('London City').id).toBe(4)
     })
 
     test('idcounter has an array of lenght 4 by now', () => {
         expect(Airport.idCounter.length).toBe(4)
     })
 
+    // plane.fly() tests
+    test('plane flies', () => {
+        expect(plane2.fly(1,2)).toEqual(`Plane ${plane2.type} is leaving from airport: 1 and landing at airport: 2.`)
+    })
 })
