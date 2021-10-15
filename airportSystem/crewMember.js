@@ -7,14 +7,13 @@ class CrewMember extends Person{
         let paramArray = [position, staffNumber];
         for (let i=0;i<paramArray.length; i++)
         {
-            if (paramArray[i] == undefined){
-                if(i === 0)
+            if (paramArray[i] == undefined && i === 0){                
                 throw new Error(`missing position`)
-
-                if(i === 1)
-                throw new Error(`missing staff number`)
             }
 
+            if (paramArray[i] == undefined && i === 1){            
+                throw new Error(`missing staff number`)
+            }
         }
         
         this.position = position

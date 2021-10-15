@@ -6,17 +6,15 @@ class Passenger extends Person{
         super(name,bags)
 
         let paramArray = [passportNumber, seatNumber];
-        
+
         for (let i=0;i<paramArray.length; i++)
         {
-            if (paramArray[i] == undefined){
-                if(i === 0)
+            if (paramArray[i] == undefined && i === 0){                
                 throw new Error(`missing passport number`)
-
-                if(i === 1)
+            }
+            if (paramArray[i] == undefined && i === 1){                
                 throw new Error(`missing seat number`)
             }
-
         }
         
         this.passportNumber = passportNumber
