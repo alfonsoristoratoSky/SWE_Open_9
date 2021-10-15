@@ -1,3 +1,5 @@
+//allows support for jest intellisense
+
 {
     "compilerOptions": {
         "target": "es6"

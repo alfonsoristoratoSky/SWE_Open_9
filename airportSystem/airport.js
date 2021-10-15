@@ -15,9 +15,10 @@ class Airport{
         this.planesTakingOff = [];
         this.planesArriving = []; 
         Airport.airports.push(this);  
-        this.id = Airport.idIncrement()
+        this.id = Airport.idIncrement();
 
     }
+    
     takingOff(plane){
         if (typeof plane != typeof new Plane('boeing')) {
             throw new Error(`must be an instance of Plane`)
@@ -40,11 +41,9 @@ class Airport{
         
         let tempId = Math.max(...Airport.idCounter) + 1;
         Airport.idCounter.push(tempId);
-        return tempId;
-        
-    
-
+        return tempId;     
     }
+
 }
 
 module.exports = Airport

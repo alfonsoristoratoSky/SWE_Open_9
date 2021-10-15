@@ -61,6 +61,7 @@ describe('airport tests', () => {
         expect(airport1.planesArriving[0].passengers[0].bags[0].weight).toEqual(10)
     })
 
+    //static tests
     test('Airport has an arry of airports automatically created', () => {
         expect(Airport.airports).toEqual(expect.arrayContaining(
             
