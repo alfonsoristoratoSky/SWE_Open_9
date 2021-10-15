@@ -61,4 +61,41 @@ describe('airport tests', () => {
         expect(airport1.planesArriving[0].passengers[0].bags[0].weight).toEqual(10)
     })
 
+    test('Airport has an arry of airports automatically created', () => {
+        expect(Airport.airports).toEqual(expect.arrayContaining(
+            
+                Airport.airports
+                      
+             ));
+    })
+
+    test('airports array has a 1st airport with name Gatwick', () => {
+        expect(Airport.airports[0].name).toBe('Gatwick')
+    })
+
+    test('gatwick has an id of 1', () => {
+        expect(airport1.id).toBe(1)
+    })
+
+    test('idcounter has an array of lenght 1', () => {
+        expect(Airport.idCounter.length).toBe(1)
+    })
+    
+
+    test('new airport has an id of 2', () => {
+        expect(new Airport('Luton').id).toBe(2)
+    })
+
+    test('new airport has an id of 3', () => {
+        expect(new Airport('third airport').id).toBe(3)
+    })
+
+    test('final new airport has an id of 4', () => {
+        expect(new Airport('third airport').id).toBe(4)
+    })
+
+    test('idcounter has an array of lenght 4 by now', () => {
+        expect(Airport.idCounter.length).toBe(4)
+    })
+
 })
