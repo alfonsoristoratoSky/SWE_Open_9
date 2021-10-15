@@ -35,6 +35,16 @@ describe('crew member tests', () => {
     test('plane crew member staff ID is 15', () => {
         expect(plane1.crewMembers[0].staffNumber).toBe(15)
     })
+
+    test('ccannot board passenger if object passed is not an instance of Passenger', () => {
+        expect(() => plane1.board('Anthony')).toThrowError('must be an instance of Passenger')
+    })
+
+    test('ccannot board crew member if object passed is not an instance of CrewMember', () => {
+        expect(() => plane1.boardCrew('Anthony')).toThrowError('must be an instance of CrewMember')
+    })
+
+    
     
 
 

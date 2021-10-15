@@ -13,6 +13,10 @@ describe('crew member tests', () => {
         expect(() => new CrewMember(undefined, 'cabin crew', 1)).toThrowError('missing name')
     })
 
+    test('error for no position', () => {
+        expect(() => new CrewMember('Lizzie', undefined, 1)).toThrowError('missing position')
+    })
+
     test('error for no staff number', () => {
         expect(() => new CrewMember('Daniel', 'captain')).toThrowError('missing staff number')
     })

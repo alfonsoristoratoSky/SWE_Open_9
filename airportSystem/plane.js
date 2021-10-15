@@ -1,6 +1,5 @@
 const Passenger = require('./passenger')
 const CrewMember = require('./crewMember')
-const Airport = require('./airport')
 
 class Plane{
     constructor(type){
@@ -27,14 +26,12 @@ class Plane{
     }
 
     // tested in airport.tests.js
-    fly(from, to){
+    fly(){
         if (this.crewMembers.length === 0){
-            throw new error('You need a crew to flight');
+            throw new Error('You need a crew to flight');
         }
-        // if(from || to != typeof Airport.id){
-        //     throw new error('You need to add IDs parameters');
-        // }
-        return `Plane ${this.type} is leaving from airport: ${from} and landing at airport: ${to}.`
+        return `Plane ${this.type} is`
+        
         
 
     }

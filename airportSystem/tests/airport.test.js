@@ -9,6 +9,7 @@ describe('airport tests', () => {
     beforeAll(()=>{              
         airport1 = new Airport('Gatwick');    
         plane1 = new Plane('Boeing');
+        plane3 = new Plane('a plane with no crew')
         passenger1 = new Passenger('Alfonso', 'YB111', '11A');
         plane2 = new Plane('Heli');
         passenger2 = new Passenger('Mark', 'AA1212', '1C');
@@ -23,7 +24,6 @@ describe('airport tests', () => {
         plane1.boardCrew(crew1);
 
         airport1.takingOff(plane1);
-        console.log(airport1.takingOff(plane1));
         airport1.comingIn(plane2);
         
     })
@@ -101,8 +101,29 @@ describe('airport tests', () => {
         expect(Airport.idCounter.length).toBe(4)
     })
 
+    test('taking off method throws error is not passed a Plane object', () => {
+        expect(() => airport1.takingOff('a')).toThrowError('must be an instance of Plane')
+    })
+
+    test('coming in method throws error is not passed a Plane object', () => {
+        expect(() => airport1.comingIn(4_000)).toThrowError('must be an instance of Plane')
+    })
+
     // plane.fly() tests
     test('plane flies', () => {
-        expect(plane2.fly(1,2)).toEqual(`Plane ${plane2.type} is leaving from airport: 1 and landing at airport: 2.`)
+        expect(plane2.fly()).toEqual(`Plane ${plane2.type} is`)
+    })
+
+    // plane.fly implemented in airport methods
+    test('plane flies out with full message, airport method', () => {
+        expect(airport1.takingOff(plane1)).toEqual(`${plane1.fly()}` + ` leaving from airport ${airport1.name}`)
+    })
+
+    test('plane flies in with full message, airport method', () => {
+        expect(airport1.comingIn(plane2)).toEqual(`${plane2.fly()}` + ` arriving at airport ${airport1.name}`)
+    })
+
+    test('plane will not fly without a crew', () => {
+        expect(() => plane3.fly()).toThrowError('You need a crew to flight')
     })
 })

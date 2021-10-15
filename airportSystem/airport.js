@@ -25,16 +25,17 @@ class Airport{
             throw new Error(`must be an instance of Plane`)
         }
         else this.planesTakingOff.push(plane);
-        return plane.fly(this.name);
+        return `${plane.fly()}` + ` leaving from airport ${this.name}`;
             
         
     }
 
     comingIn(plane){
-        if (typeof plane != typeof new Plane('boeing')) {
+        if (typeof plane != typeof new Plane('any')) {
             throw new Error(`must be an instance of Plane`)
         }
         else this.planesArriving.push(plane);
+        return `${plane.fly()}` + ` arriving at airport ${this.name}`;
     }
 
     static idIncrement(){
