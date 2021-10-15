@@ -47,7 +47,7 @@ describe('Passenger tests', () => {
     })
 
     test('there is an alert asking to pay extra if bag weight is higher than 22', () => {
-        expect(() => new Passenger('Alfo','passport', 'seat').addBag(new Bag(23))).toThrowError(`Needs to pay extra`)
+        expect(new Passenger('Alfo','passport', 'seat').addBag(new Bag(23))).toEqual(`Needs to pay extra`)
     })
 
 

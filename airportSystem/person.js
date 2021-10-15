@@ -16,7 +16,7 @@ class Person{
         }
         else this.bags.push(bag);
         if (bag.weight > 22) {
-            throw new Error('Needs to pay extra')
+            return 'Needs to pay extra'
         }
     }
 }
