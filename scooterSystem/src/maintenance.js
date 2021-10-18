@@ -6,7 +6,7 @@ class Maintenance extends Person{
     constructor(name, dob, specialCode){
         super(name, dob)
 
-        if (specialCode.toString().length != 8 || 
+        if (specialCode == undefined || specialCode.toString().length != 8 || 
             typeof specialCode !== 'number'){
             throw new Error ('Employee code must be of 8 digits and a number')
         }
