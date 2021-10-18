@@ -42,5 +42,4 @@ describe('Person class', () => {
         expect(() => new Person(null, 13-12-2000)).toThrowError('You must insert a name of at least 3 characters')
     })
     
-    
 })
