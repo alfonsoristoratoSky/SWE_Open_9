@@ -49,11 +49,6 @@ class Airport{
         return tempId;     
     }
 
-
-    
-
-
-
 }
 
 module.exports = Airport
