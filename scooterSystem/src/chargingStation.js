@@ -20,7 +20,11 @@ class ChargingStation{
         }
     }
     chargeScooter(){
+        
+        ScooterApp.insertLocation(this.location)
 
+
+        // ScooterApp.locationSelected = undefined;
     };
 
     requestMaintenance(){

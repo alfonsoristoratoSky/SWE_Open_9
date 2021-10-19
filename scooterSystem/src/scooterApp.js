@@ -17,6 +17,8 @@ class ScooterApp{
 
     static locationSelected;
 
+    static scooterInUse;
+
     static idIncrement(){
         if (ScooterApp.idCounter.length === 0){
             ScooterApp.idCounter.push(1);
@@ -92,12 +94,35 @@ class ScooterApp{
         if (ScooterApp.locationSelected == undefined){
             throw new Error('Go back to insert a valid location')
         }
-        let scooterSelected = (ScooterApp.chargingStations['location'] = ScooterApp.locationSelected)['scootersInLocation'][0];
+        let scooterSelected = ScooterApp.chargingStations.find((object) => object.location === 
+        ScooterApp.locationSelected.location).scootersInLocation[0];
         scooterSelected.isLocked = false;
         // remove scooter from specific charging station
-        ScooterApp.chargingStations['location'] = ScooterApp.locationSelected['scootersInLocation'].splice(0,0)
-        preauthCard();
+        ScooterApp.chargingStations.find((object) => object.location === 
+        ScooterApp.locationSelected.location).scootersInLocation.splice(0,1)
 
+
+        
+        preauthCard();
+        ScooterApp.locationSelected = undefined;
+        ScooterApp.scooterInUse = scooterSelected;
+        console.log(`using scooter ${scooterSelected.id}`)
+
+    }
+
+    static returnScooter(){
+        if (ScooterApp.userUsing == undefined){
+            throw ScooterApp.errorUser;
+        }
+        if (ScooterApp.locationSelected == undefined){
+            throw new Error('Go back to insert a valid location')
+        }
+        // push scooter back in array of scooters
+        ScooterApp.chargingStations.find((object) => object.location === 
+        ScooterApp.locationSelected.location).scootersInLocation.push(ScooterApp.scooterInUse)
+        chargeCard()
+        ScooterApp.scooterInUse = undefined;
+        ScooterApp.locationSelected = undefined;
     }
 
 
@@ -106,8 +131,15 @@ class ScooterApp{
 
 
 function preauthCard(){
+    console.log('Your card will be charged £1 for each km')
     console.log(`Card ${ScooterApp.userUsing.user.cardDetails['Card number']} of ${ScooterApp.userUsing.user.name} has been preauthorized for £50`)
 }
+
+function chargeCard(){
+    let kmUsed = ScooterApp.scooterInUse.distanceTravelled
+    console.log(`Card ${ScooterApp.userUsing.user.cardDetails['Card number']} of ${ScooterApp.userUsing.user.name} has been charged for £${kmUsed}, as you have travelled ${kmUsed} Kms`)
+}
+
 function getAge(dateString) {
     var today = new Date();
     var birthDate = new Date(dateString);

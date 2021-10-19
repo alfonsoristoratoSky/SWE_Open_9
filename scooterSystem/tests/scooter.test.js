@@ -6,7 +6,7 @@ describe('Scooter class', () => {
         scoot2 = new Scooter();
     })
 
-    test('scoot1 has an id of 1, a battery of 100, is not locked, is not under maintenance, has a distance travelled of 0', () =>{
+    test('scoot1 has an id of 1, a battery of 100, is charged, is not locked, is not under maintenance, has a distance travelled of 0', () =>{
         expect(scoot1).toEqual({
             battery: 100,
             distanceTravelled: 0,

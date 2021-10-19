@@ -13,17 +13,34 @@ class Scooter{
     }
     static idCounter = []
 
-    timeToCharge(){
+    // timeToCharge(){
 
-    };
+    // };
 
-    showAutonomy(){
+    // showAutonomy(){
 
-    };
+    // };
 
-    alertLowBattery(){
+    // alertLowBattery(){
 
-    };
+    // };
+
+    ride(){
+        if (this.isLocked = false){
+            throw new Error('You must unlock scooter via the app before using it')
+        }
+        
+        
+        let interv = setInterval(() =>{
+            this.distanceTravelled+=0.32;
+            this.battery -=1;
+            console.log(`Scooter ${this.id} battery level: ` + this.battery)
+            if(this.battery === 0)clearInterval(interv)
+            }
+        
+        ,1000); // ideally this is set to 10 sec, but for the sake of the 
+                 // programme running, it's set to 1 sec
+    }
 
 }
 
