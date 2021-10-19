@@ -4,10 +4,18 @@ const User = require('./user')
 class ScooterApp{
     
     static maintenanceCodes = [12345678, 23456789, 12123344]
-    static chargingStations =[]
+    
     static users = []
+    static userUsing;
+    static errorUser = new Error('You must be an user in order to use the app, please register or log-in')
+
     static maintenance = []
     static idCounter = []
+
+    // Array of charging stations
+    static chargingStations =[]
+
+    static locationSelected;
 
     static idIncrement(){
         if (ScooterApp.idCounter.length === 0){
@@ -22,11 +30,33 @@ class ScooterApp{
     }
 
     static registerUser(name,dob, cardNumber, expiryDate, cvc){
+        ScooterApp.userUsing = undefined;
         let id = ScooterApp.idIncrement()
         let user = new User(name,dob, cardNumber, expiryDate, cvc);
+
+        //check for user to be 18 yo
+        if (getAge(user.dob) < 18){
+            throw new Error ('You must be 18 years old to use this app')
+        }
         
         this.users.push({id, user})
+        ScooterApp.userUsing = {id, user};
+        console.log(`Your Login ID is: ${id}`)
     }
+
+    static logout(){
+        ScooterApp.userUsing = undefined;
+    }
+
+    static login(id){
+        if(!ScooterApp.users.find(object => object.id === id)){
+            throw new Error ('Please insert a valid id to login')
+        }
+        let user = ScooterApp.users.find(object => object.id === id)
+        ScooterApp.userUsing = user;
+        
+    }
+
     static registerMaintenance(name, dob, specialCode){
         let id = ScooterApp.idIncrement()
         if (!ScooterApp.maintenanceCodes.includes(specialCode)){
@@ -38,7 +68,55 @@ class ScooterApp{
         }
     }
 
-    
+    static insertLocation(location){
+        ScooterApp.locationSelected = undefined;
+        if (ScooterApp.userUsing == undefined){
+            throw ScooterApp.errorUser;
+        }
+        if (ScooterApp.chargingStations.find(
+            (object) => object.location === location)){
+            console.log(`There are ${ScooterApp.chargingStations.length} scooters at '${location}''`)
+            ScooterApp.locationSelected = ScooterApp.chargingStations.find(
+                (object) => object.location === location)
+        }
+        else{
+            console.log(`We do not serve '${location}'`)
+        }
+
+    }
+
+    static unlockScooter(){
+        if (ScooterApp.userUsing == undefined){
+            throw ScooterApp.errorUser;
+        }
+        if (ScooterApp.locationSelected == undefined){
+            throw new Error('Go back to insert a valid location')
+        }
+        let scooterSelected = (ScooterApp.chargingStations['location'] = ScooterApp.locationSelected)['scootersInLocation'][0];
+        scooterSelected.isLocked = false;
+        // remove scooter from specific charging station
+        ScooterApp.chargingStations['location'] = ScooterApp.locationSelected['scootersInLocation'].splice(0,0)
+        preauthCard();
+
+    }
+
+
+}
+
+
+
+function preauthCard(){
+    console.log(`Card ${ScooterApp.userUsing.user.cardDetails['Card number']} of ${ScooterApp.userUsing.user.name} has been preauthorized for £50`)
+}
+function getAge(dateString) {
+    var today = new Date();
+    var birthDate = new Date(dateString);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age;
 }
 
 

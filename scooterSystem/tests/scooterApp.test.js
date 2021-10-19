@@ -15,6 +15,15 @@ describe('Scooter app class', () => {
         expect(() => ScooterApp.registerMaintenance('Mark', '2000-09-09')).toThrowError('Not a valid employee code')
     })
 
+    test('user must be 18 yo', () => {
+        expect(() => ScooterApp.registerUser('Mark', '2005-10-10', 4444333322221111, 1022, 344)).toThrowError('You must be 18 years old to use this app')
+    })
+
+    // test('insertLocation function can only show available locations', () => {
+    //     let x = ScooterApp.insertLocation('dummy location');
+    //     expect(console.log).toBeCalledWith(`We do not serve 'dummy location'`)
+    // })
+
 
 
 })
