@@ -16,9 +16,8 @@ class Maintenance extends Person{
         }
         
     }
-    
-    repairScooter(scooter){
-
+    static repairScooter(){
+        // let x = ScooterApp.chargingStations.find((obj) => obj === find((obj2) => obj2.scootersInLocation.isUnderMaintenance == true))
     }
     
 }

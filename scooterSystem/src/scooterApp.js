@@ -127,8 +127,10 @@ class ScooterApp{
         }
         // mark scooter as broken, let the rest be handled by returnScooter()
         ScooterApp.scooterInUse.isUnderMaintenance = true;
-        ScooterApp.returnScooter()
+        
         ScooterApp.callMaintenance()
+        ScooterApp.returnScooter()
+
     }
 
     static returnScooter(){
@@ -151,9 +153,10 @@ class ScooterApp{
 
     static callMaintenance(){
         let firstMaintAvailable = ScooterApp.maintenance[0].maintenance;
-        let scooterUnderMaintenance = 
+        
         console.log('CALLING MAINTENANCE')
-        console.log(`Please ${firstMaintAvailable.name} go and fix`)
+        console.log(`Please ${firstMaintAvailable.name} go and fix Scooter: ${ScooterApp.scooterInUse.id}`)
+        Maintenance.repairScooter();
     }
 
 

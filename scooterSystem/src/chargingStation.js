@@ -33,7 +33,7 @@ class ChargingStation{
             if(toCharge.battery === 100){
                 clearInterval(interv)
                 toCharge.isCharged = true;
-                
+                toCharge.distanceTravelled = 0;
             }
         },1000)
         
