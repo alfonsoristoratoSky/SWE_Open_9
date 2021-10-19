@@ -13,7 +13,8 @@ describe('Scooter class', () => {
             id: 1,
             isLocked: true,
             isUnderMaintenance: false,
-            isCharged: true
+            isCharged: true,
+            isInUse: false
         })
     })
 

@@ -19,17 +19,27 @@ class ChargingStation{
             this.scootersInLocation.push(scooter)
         }
     }
-    chargeScooter(){
-        
+    chargeScooter(){        
         ScooterApp.insertLocation(this.location)
+        console.log(`charging 1.2% of battery per second`)
+        let toCharge = this.scootersInLocation.find(obj => obj.battery < 100)
+        if (toCharge == undefined || toCharge == null){
+            throw new Error ('There are no scooters to charge')
+        }
+        let interv = setInterval(() => {
 
-
-        // ScooterApp.locationSelected = undefined;
+            console.log(`Scooter ${toCharge.id} charging, current battery level: ${toCharge.battery}`)
+            toCharge.battery +=1;
+            if(toCharge.battery === 100){
+                clearInterval(interv)
+                toCharge.isCharged = true;
+                
+            }
+        },1000)
+        
     };
 
-    requestMaintenance(){
 
-    };
 
 }
 

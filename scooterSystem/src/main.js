@@ -68,11 +68,43 @@ scoot1.ride()
 console.log('CHARGING STATIONS UPDATED')
 console.log(app.chargingStations)
 
+// // wait 10 secs so the scooter runs a bit :)
+// setTimeout(() => {
+//     // return scooter at different location
+//     app.insertLocation('Beach')
+//     app.returnScooter()
+
+//     // comment out first timeout and uncomment 
+//     // the below to see the logic behind a broken scooter
+    
+
+//     // charging station BEACH now has one more scooter
+//     // as it's been returned
+//     console.log('CHARGING STATIONS UPDATED')
+//     console.log(app.chargingStations);
+//     // In order to prove that returned scooter has a lower battery
+//     // we need to select a location again, as otherwise the app won't work
+//     // the chargeScooter() of the charging stations sets this
+//     charg2.chargeScooter()
+
+//     // wait 11 secs so the scooter charges:)
+//     setTimeout(() => {
+//         console.log(app.chargingStations.find((object) => object.location === 
+//         ScooterApp.locationSelected.location).scootersInLocation);
+
+//     }, 11000)
+    
+
+//   }, 10000);
+
+// comment out first timeout and uncomment 
+// the below to see the logic behind a broken scooter
 // wait 10 secs so the scooter runs a bit :)
 setTimeout(() => {
     // return scooter at different location
     app.insertLocation('Beach')
-    app.returnScooter()
+    app.reportBroken()
+
     // charging station BEACH now has one more scooter
     // as it's been returned
     console.log('CHARGING STATIONS UPDATED')
@@ -81,9 +113,15 @@ setTimeout(() => {
     // we need to select a location again, as otherwise the app won't work
     // the chargeScooter() of the charging stations sets this
     charg2.chargeScooter()
-    console.log(app.chargingStations.find((object) => object.location === 
-    ScooterApp.locationSelected.location).scootersInLocation);
-  }, 10000);
 
+    // wait 11 secs so the scooter charges:)
+    setTimeout(() => {
+        console.log(app.chargingStations.find((object) => object.location === 
+        ScooterApp.locationSelected.location).scootersInLocation);
+
+    }, 11000)
+    
+
+  }, 10000);
 
 

@@ -8,6 +8,7 @@ class Scooter{
         this.isLocked = true;
         this.isUnderMaintenance = false;
         this.isCharged = true;
+        this.isInUse = false;
 
 
     }
@@ -35,7 +36,7 @@ class Scooter{
             this.distanceTravelled+=0.32;
             this.battery -=1;
             console.log(`Scooter ${this.id} battery level: ` + this.battery)
-            if(this.battery === 0)clearInterval(interv)
+            if(this.battery === 0 || this.isInUse == false)clearInterval(interv)
             }
         
         ,1000); // ideally this is set to 10 sec, but for the sake of the 

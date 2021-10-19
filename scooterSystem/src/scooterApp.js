@@ -1,4 +1,5 @@
-const Maintenance = require('./maintenance')
+const Maintenance = require('./maintenance');
+const Scooter = require('./scooter');
 const User = require('./user')
 
 class ScooterApp{
@@ -95,19 +96,39 @@ class ScooterApp{
             throw new Error('Go back to insert a valid location')
         }
         let scooterSelected = ScooterApp.chargingStations.find((object) => object.location === 
-        ScooterApp.locationSelected.location).scootersInLocation[0];
+        ScooterApp.locationSelected.location).
+                scootersInLocation[0]
+                // .find((obj) => 
+                // obj.isCharged === true, 
+                // obj.isUnderMaintenance === false);
+
+
         scooterSelected.isLocked = false;
         // remove scooter from specific charging station
         ScooterApp.chargingStations.find((object) => object.location === 
         ScooterApp.locationSelected.location).scootersInLocation.splice(0,1)
-
+        
 
         
         preauthCard();
         ScooterApp.locationSelected = undefined;
         ScooterApp.scooterInUse = scooterSelected;
+        ScooterApp.scooterInUse.isInUse = true;
         console.log(`using scooter ${scooterSelected.id}`)
 
+    }
+
+    static reportBroken(){
+        if (ScooterApp.userUsing == undefined){
+            throw ScooterApp.errorUser;
+        }
+        if (ScooterApp.locationSelected == undefined){
+            throw new Error('Go back to insert a valid location')
+        }
+        // mark scooter as broken, let the rest be handled by returnScooter()
+        ScooterApp.scooterInUse.isUnderMaintenance = true;
+        ScooterApp.returnScooter()
+        ScooterApp.callMaintenance()
     }
 
     static returnScooter(){
@@ -117,12 +138,22 @@ class ScooterApp{
         if (ScooterApp.locationSelected == undefined){
             throw new Error('Go back to insert a valid location')
         }
+        // Mark scooter as not charged and not in use
+        ScooterApp.scooterInUse.isCharged = false;
+        ScooterApp.scooterInUse.isInUse = false;
         // push scooter back in array of scooters
         ScooterApp.chargingStations.find((object) => object.location === 
         ScooterApp.locationSelected.location).scootersInLocation.push(ScooterApp.scooterInUse)
         chargeCard()
         ScooterApp.scooterInUse = undefined;
         ScooterApp.locationSelected = undefined;
+    }
+
+    static callMaintenance(){
+        let firstMaintAvailable = ScooterApp.maintenance[0].maintenance;
+        let scooterUnderMaintenance = 
+        console.log('CALLING MAINTENANCE')
+        console.log(`Please ${firstMaintAvailable.name} go and fix`)
     }
 
 
