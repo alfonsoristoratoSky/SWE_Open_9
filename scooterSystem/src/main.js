@@ -38,8 +38,8 @@ charg2.addScooter(scoot4)
 
 // prove that charging stations are automatically 
 // added to scooter app and now contain scooters
-console.log('CHARGING STATIONS')
-console.log(app.chargingStations)
+// console.log('CHARGING STATIONS')
+// console.log(app.chargingStations)
 
 // user can select a location and the console will say 
 // whether or not it exists and how many scooters there are
@@ -68,6 +68,8 @@ scoot1.ride()
 console.log('CHARGING STATIONS UPDATED')
 console.log(app.chargingStations)
 
+//#region Commented out as code below mimics returnScooter()
+
 // // wait 10 secs so the scooter runs a bit :)
 // setTimeout(() => {
 //     // return scooter at different location
@@ -76,7 +78,7 @@ console.log(app.chargingStations)
 
 //     // comment out first timeout and uncomment 
 //     // the below to see the logic behind a broken scooter
-    
+
 
 //     // charging station BEACH now has one more scooter
 //     // as it's been returned
@@ -89,16 +91,19 @@ console.log(app.chargingStations)
 
 //     // wait 11 secs so the scooter charges:)
 //     setTimeout(() => {
-//         console.log(app.chargingStations.find((object) => object.location === 
-//         ScooterApp.locationSelected.location).scootersInLocation);
+//         console.log(app.chargingStations.find((object) => object.location ===
+//             ScooterApp.locationSelected.location).scootersInLocation);
 
 //     }, 11000)
-    
 
-//   }, 10000);
 
-// comment out first timeout and uncomment 
-// the below to see the logic behind a broken scooter
+// }, 10000);
+
+//#endregion
+
+// uncomment out first timeout and comment out
+// the below to see the logic behind a non broken scooter returned
+// I left this on as reportBroken() calls returnScooter() from within
 // wait 10 secs so the scooter runs a bit :)
 setTimeout(() => {
     // return scooter at different location
@@ -113,13 +118,19 @@ setTimeout(() => {
     // we need to select a location again, as otherwise the app won't work
     // the chargeScooter() of the charging stations sets this
     charg2.chargeScooter()
+    console.log('PROVES THAT SCOOTER RETURNED VIA reportBroken() HAS A LOWER BATTERY AND IS UNDER MAINTENANCE')
+    console.log(app.chargingStations.find((object) => object.location === 
+    ScooterApp.locationSelected.location).scootersInLocation);
 
-    // wait 11 secs so the scooter charges:)
+
+    // wait 20 secs so the scooter charges:)
     setTimeout(() => {
+        console.log('PROVES THAT SCOOTER HAS BEEN REPAIRED')
         console.log(app.chargingStations.find((object) => object.location === 
         ScooterApp.locationSelected.location).scootersInLocation);
 
-    }, 11000)
+
+    }, 21000)
     
 
   }, 10000);

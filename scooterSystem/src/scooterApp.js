@@ -1,5 +1,5 @@
 const Maintenance = require('./maintenance');
-const Scooter = require('./scooter');
+
 const User = require('./user')
 
 class ScooterApp{
@@ -128,8 +128,9 @@ class ScooterApp{
         // mark scooter as broken, let the rest be handled by returnScooter()
         ScooterApp.scooterInUse.isUnderMaintenance = true;
         
-        ScooterApp.callMaintenance()
+        let callMaintenance = ScooterApp.callMaintenance()
         ScooterApp.returnScooter()
+        ScooterApp.repairScooter(callMaintenance[0], callMaintenance[1])
 
     }
 
@@ -140,9 +141,10 @@ class ScooterApp{
         if (ScooterApp.locationSelected == undefined){
             throw new Error('Go back to insert a valid location')
         }
-        // Mark scooter as not charged and not in use
+        // Mark scooter as not charged, not in use and locked
         ScooterApp.scooterInUse.isCharged = false;
         ScooterApp.scooterInUse.isInUse = false;
+        ScooterApp.scooterInUse.isLocked = true;
         // push scooter back in array of scooters
         ScooterApp.chargingStations.find((object) => object.location === 
         ScooterApp.locationSelected.location).scootersInLocation.push(ScooterApp.scooterInUse)
@@ -153,10 +155,27 @@ class ScooterApp{
 
     static callMaintenance(){
         let firstMaintAvailable = ScooterApp.maintenance[0].maintenance;
-        
+        const location = ScooterApp.locationSelected.location;
         console.log('CALLING MAINTENANCE')
-        console.log(`Please ${firstMaintAvailable.name} go and fix Scooter: ${ScooterApp.scooterInUse.id}`)
-        Maintenance.repairScooter();
+        console.log(`Please ${firstMaintAvailable.name} go and fix Scooter: ${ScooterApp.scooterInUse.id} at '${location}''`)
+        return [location, firstMaintAvailable];
+    }
+
+    static async repairScooter(location, firstMaintAvailable){
+        let scooter = ScooterApp.chargingStations.find(obj => obj.location === location).scootersInLocation.find(obj => obj.isUnderMaintenance === true)
+        console.log(`${firstMaintAvailable.name}: I located Scooter ${scooter.id} at '${location}'' and will need 20 seconds to repair`)
+        let counter = 20;
+        await new Promise(() => {
+            let interv = setInterval(()=>{
+                console.log(`Scooter ${scooter.id} under repair, remaining time ${counter} seconds`)
+                counter--;
+                if (counter === 0){
+                    clearInterval(interv);
+                    scooter.isUnderMaintenance = false;
+                }
+            }, 1000);
+        })
+            
     }
 
 

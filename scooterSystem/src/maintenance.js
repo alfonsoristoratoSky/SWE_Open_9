@@ -1,5 +1,5 @@
 const Person = require('./person')
-const ScooterApp = require('./scooterApp')
+const ScooterApp = require("./scooterApp");
 
 
 class Maintenance extends Person{
@@ -16,9 +16,7 @@ class Maintenance extends Person{
         }
         
     }
-    static repairScooter(){
-        // let x = ScooterApp.chargingStations.find((obj) => obj === find((obj2) => obj2.scootersInLocation.isUnderMaintenance == true))
-    }
+
     
 }
 
