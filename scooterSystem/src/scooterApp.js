@@ -89,7 +89,7 @@ class ScooterApp{
     }
 
     static unlockScooter(){
-        if (ScooterApp.userUsing == undefined){
+        if (ScooterApp.userUsing == undefined) {
             throw ScooterApp.errorUser;
         }
         if (ScooterApp.locationSelected == undefined){
@@ -142,8 +142,7 @@ class ScooterApp{
         if (ScooterApp.locationSelected == undefined){
             throw new Error('Go back to insert a valid location')
         }
-        // Mark scooter as not charged, not in use and locked
-        ScooterApp.scooterInUse.isCharged = false;
+        // Mark scooter as not in use and locked
         ScooterApp.scooterInUse.isInUse = false;
         ScooterApp.scooterInUse.isLocked = true;
         // push scooter back in array of scooters

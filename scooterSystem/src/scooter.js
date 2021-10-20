@@ -23,6 +23,7 @@ class Scooter {
         let interv = setInterval(() => {
             this.distanceTravelled += 0.32;
             this.battery -= 1;
+            this.isCharged = false;
             console.log(`Scooter ${this.id} battery level: ` + this.battery)
             if (this.battery === 0 || this.isInUse === false) {
                 clearInterval(interv)
