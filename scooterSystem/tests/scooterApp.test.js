@@ -3,6 +3,7 @@ const ScooterApp = require('../src/scooterApp')
 const ChargingStation = require('../src/chargingStation')
 const Scooter = require('../src/scooter');
 
+
 describe('Scooter app class', () => {
     beforeAll(() => {
         ScooterApp.registerUser('Alf', '2000-01-01', 4444333322221111, 1022, 111)
@@ -10,8 +11,8 @@ describe('Scooter app class', () => {
         charg1 = new ChargingStation('City Center')
         charg2 = new ChargingStation('Beach')
         //create 4 scooters
-        const scoot1 = new Scooter()
-        const scoot2 = new Scooter()
+        scoot1 = new Scooter()
+        scoot2 = new Scooter()
         // add scooters to charging station
         charg2.addScooter(scoot1)
         charg2.addScooter(scoot2)
@@ -137,22 +138,22 @@ describe('Scooter app class', () => {
 
     test('Scooter before report broken is NOT underMaintenance, also location is again unset as unlockScooter() unsets it',()=>{
         ScooterApp.insertLocation('Beach')
-        ScooterApp.unlockScooter()
+        ScooterApp.unlockScooter()  
         expect(ScooterApp.scooterInUse.isUnderMaintenance).toBe(false)
         expect(() => ScooterApp.reportBroken()).toThrowError('Go back to insert a valid location')
         /**
          * we need to return at least 
-         * one scooter otherwise the location 
+         * this scooter otherwise the location 
          * won't have any left for future tests
+         * note that previously we unlocked a scooter, scoot1
+         * and never returned it - normally reportBroken would return the scooter
+         * but it has been called in a callback function, hence not part of
+         * execution
          */
         ScooterApp.insertLocation('Beach')
+        // we are now returning scoot2
         ScooterApp.returnScooter()
     })
-
-    /**
-     * continue with reportbroken, as it's async
-     * will do it later
-     */
 
     test('return scooter throws errors as unlock scooter and report broken',()=>{
         ScooterApp.logout()
@@ -179,6 +180,125 @@ describe('Scooter app class', () => {
         expect(scooterReturned.isInUse).toBe(false)
         expect(scooterReturned.isLocked).toBe(true)
     })
+
+    test('ride a scooter for some time, so we can charge it', () => {
+        jest.useFakeTimers()
+        ScooterApp.insertLocation('Beach')
+        ScooterApp.unlockScooter() // we are now unlocking the only scooter available
+
+        let x = 0;
+        while (x<5){
+            scoot2.ride();
+            x++
+        }
+        // advance to the end of the interval, 5 times as in the loop
+        jest.advanceTimersByTime(1000)
+        
+        
+        expect(scoot2.battery).toBe(95)
+        expect(scoot2.distanceTravelled).toBe(0.32*5)
+
+        jest.clearAllTimers()
+
+    })
+    test('charge a scooter', () => {
+        jest.useFakeTimers()
+        
+        /**
+         * we will now return the scooter
+         * and as the battery is at 95, the ScooterApp.locationSelected.chargeScooter() method
+         * inside returnScooter(),
+         * which calls the chargingStation.chargeScooter(), will run
+         */
+        ScooterApp.insertLocation('Beach')
+        ScooterApp.returnScooter()
+        // we are now starting to charge, let's go ahead 2 seconds
+        jest.advanceTimersByTime(2000)
+        expect(scoot2.battery).toBe(97)
+        // distance travelled resets only once charge is at 100
+        expect(scoot2.distanceTravelled).toBe(0.32*5)
+
+        // let's charge to completion, 3 more seconds
+        jest.advanceTimersByTime(3000)
+        expect(scoot2.battery).toBe(100)
+        expect(scoot2.distanceTravelled).toBe(0)
+        jest.clearAllTimers()
+
+    })
+
+    test('chargeScooter() can be called from a station, although not needed, but if called and there is no scooter to charge, it will throw an error', () =>{
+        expect(() => charg2.chargeScooter()).toThrowError('There are no scooters to charge')
+    })
+
+    test('ride a scooter for some time, so we can reportBroekn and return it', () => {
+        jest.useFakeTimers()
+        ScooterApp.insertLocation('Beach')
+        ScooterApp.unlockScooter() // we are now unlocking the only scooter available
+
+        let x = 0;
+        while (x<5){
+            scoot2.ride();
+            x++
+        }
+        // advance to the end of the interval, 5 times as in the loop
+        jest.advanceTimersByTime(1000)
+        
+        
+        expect(scoot2.battery).toBe(95)
+        expect(scoot2.distanceTravelled).toBe(0.32*5)
+
+        jest.clearAllTimers()
+
+    })
+    test('charge a scooter', () => {
+        jest.useFakeTimers()
+        
+        /**
+         * we will now return the scooter
+         * and as the battery is at 95, the ScooterApp.locationSelected.chargeScooter() method
+         * inside returnScooter(),
+         * which calls the chargingStation.chargeScooter(), will run
+         */
+        ScooterApp.insertLocation('Beach')
+        ScooterApp.returnScooter()
+        // we are now starting to charge, let's go ahead 2 seconds
+        jest.advanceTimersByTime(2000)
+        expect(scoot2.battery).toBe(97)
+        // distance travelled resets only once charge is at 100
+        expect(scoot2.distanceTravelled).toBe(0.32*5)
+
+        // let's charge to completion, 3 more seconds
+        jest.advanceTimersByTime(3000)
+        expect(scoot2.battery).toBe(100)
+        expect(scoot2.distanceTravelled).toBe(0)
+        jest.clearAllTimers()
+
+    })
+    test('reportBroken(), which callMaintenance() and returnScooter() - callMainenance() also triggers repairScooter()', () => {
+        jest.useFakeTimers()
+        
+        /**
+         * we will now return the scooter
+         * and as the battery is at 95, the ScooterApp.locationSelected.chargeScooter() method
+         * inside returnScooter(),
+         * which calls the chargingStation.chargeScooter(), will run
+         */
+        ScooterApp.insertLocation('Beach')
+        ScooterApp.returnScooter()
+        // we are now starting to charge, let's go ahead 2 seconds
+        jest.advanceTimersByTime(2000)
+        expect(scoot2.battery).toBe(97)
+        // distance travelled resets only once charge is at 100
+        expect(scoot2.distanceTravelled).toBe(0.32*5)
+
+        // let's charge to completion, 3 more seconds
+        jest.advanceTimersByTime(3000)
+        expect(scoot2.battery).toBe(100)
+        expect(scoot2.distanceTravelled).toBe(0)
+        jest.clearAllTimers()
+
+    })
+
 
 
 

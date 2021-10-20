@@ -1,7 +1,7 @@
 const ChargingStation = require('./chargingStation');
 const Scooter = require('./scooter');
-const ScooterApp = require('./scooterApp');
-let app = ScooterApp;
+const app = require('./scooterApp'); //ScooterApp was too long
+
 
 
 //Register users
@@ -121,14 +121,14 @@ setTimeout(() => {
     app.insertLocation('Beach')
     console.log('PROVES THAT SCOOTER RETURNED VIA reportBroken() HAS A LOWER BATTERY AND IS UNDER MAINTENANCE')
     console.log(app.chargingStations.find((object) => object.location === 
-    ScooterApp.locationSelected.location).scootersInLocation);
+    app.locationSelected.location).scootersInLocation);
 
 
     // wait 20 secs so the scooter charges:)
     setTimeout(() => {
         console.log('PROVES THAT SCOOTER HAS BEEN REPAIRED')
         console.log(app.chargingStations.find((object) => object.location === 
-        ScooterApp.locationSelected.location).scootersInLocation);
+        app.locationSelected.location).scootersInLocation);
 
 
     }, 21000)

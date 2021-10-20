@@ -31,28 +31,6 @@ describe('Scooter class', () => {
         expect(() => new Scooter().ride()).toThrowError('You must unlock scooter via the app before using it')
     })
 
-    // test("ride", () => {
-    //     scoot1.isLocked = false;
-    //     let interv = setInterval(() => {
-    //         scoot1.ride(); // we need to wait for the ride
-            
-    //         if(scoot1.battery === 95){
-                
-    //             clearInterval(interv)
-                
-    //         }
-
-            
-    //     },1000)
-    //     setTimeout(() => {
-    //         expect(scoot1.battery).toBe(95)
-    //     },5100)
-        
-        
-
-    //   });
-    
-    
     test('ride decreases battery and logs battery  level every second', () => {
         scoot1.isLocked = false;
         jest.useFakeTimers()
