@@ -35,10 +35,7 @@ describe('Scooter class', () => {
         scoot1.isLocked = false;
         jest.useFakeTimers()
         jest.spyOn(global, 'setInterval')
-        
-        
-        
-        
+
         let x = 0;
         while (x<5){
             scoot1.ride();
