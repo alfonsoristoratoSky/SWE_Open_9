@@ -245,30 +245,7 @@ describe('Scooter app class', () => {
         jest.clearAllTimers()
 
     })
-    // test('charge a scooter', () => {
-    //     jest.useFakeTimers()
-        
-    //     /**
-    //      * we will now return the scooter
-    //      * and as the battery is at 95, the ScooterApp.locationSelected.chargeScooter() method
-    //      * inside returnScooter(),
-    //      * which calls the chargingStation.chargeScooter(), will run
-    //      */
-    //     ScooterApp.insertLocation('Beach')
-    //     ScooterApp.returnScooter()
-    //     // we are now starting to charge, let's go ahead 2 seconds
-    //     jest.advanceTimersByTime(2000)
-    //     expect(scoot2.battery).toBe(97)
-    //     // distance travelled resets only once charge is at 100
-    //     expect(scoot2.distanceTravelled).toBe(0.32*5)
 
-    //     // let's charge to completion, 3 more seconds
-    //     jest.advanceTimersByTime(3000)
-    //     expect(scoot2.battery).toBe(100)
-    //     expect(scoot2.distanceTravelled).toBe(0)
-    //     jest.clearAllTimers()
-
-    // })
     test('reportBroken(), which callMaintenance() and returnScooter() - callMainenance() also triggers repairScooter()', () => {
         jest.useFakeTimers()        
         /**
