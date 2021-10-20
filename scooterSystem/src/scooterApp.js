@@ -98,21 +98,22 @@ class ScooterApp{
         let scooterSelected = ScooterApp.chargingStations.find((object) => object.location === 
         ScooterApp.locationSelected.location).
                 scootersInLocation[0]
+                
                 // .find((obj) => 
                 // obj.isCharged === true, 
                 // obj.isUnderMaintenance === false);
 
-
-        scooterSelected.isLocked = false;
+        ScooterApp.scooterInUse = scooterSelected;
+        ScooterApp.scooterInUse.isLocked = false;
+        
         // remove scooter from specific charging station
         ScooterApp.chargingStations.find((object) => object.location === 
         ScooterApp.locationSelected.location).scootersInLocation.splice(0,1)
         
-
         
         preauthCard();
         ScooterApp.locationSelected = undefined;
-        ScooterApp.scooterInUse = scooterSelected;
+        
         ScooterApp.scooterInUse.isInUse = true;
         console.log(`using scooter ${scooterSelected.id}`)
 

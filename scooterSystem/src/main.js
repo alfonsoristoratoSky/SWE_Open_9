@@ -63,7 +63,8 @@ console.log(app.locationSelected)
 app.logout()
 app.login(1)
 app.unlockScooter()
-scoot1.ride()
+
+app.scooterInUse.ride()
 // charging stations now have one less scooter
 console.log('CHARGING STATIONS UPDATED')
 console.log(app.chargingStations)
