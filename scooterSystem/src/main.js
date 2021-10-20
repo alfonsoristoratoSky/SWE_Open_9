@@ -117,8 +117,8 @@ setTimeout(() => {
     console.log(app.chargingStations);
     // In order to prove that returned scooter has a lower battery
     // we need to select a location again, as otherwise the app won't work
-    // the chargeScooter() of the charging stations sets this
-    charg2.chargeScooter()
+    // 
+    app.insertLocation('Beach')
     console.log('PROVES THAT SCOOTER RETURNED VIA reportBroken() HAS A LOWER BATTERY AND IS UNDER MAINTENANCE')
     console.log(app.chargingStations.find((object) => object.location === 
     ScooterApp.locationSelected.location).scootersInLocation);

@@ -20,7 +20,7 @@ class ChargingStation{
         }
     }
     chargeScooter(){        
-        ScooterApp.insertLocation(this.location)
+        
         console.log(`charging 1.2% of battery per second`)
         let toCharge = this.scootersInLocation.find(obj => obj.battery < 100)
         if (toCharge == undefined || toCharge == null){

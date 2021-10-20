@@ -149,6 +149,12 @@ class ScooterApp{
         ScooterApp.chargingStations.find((object) => object.location === 
         ScooterApp.locationSelected.location).scootersInLocation.push(ScooterApp.scooterInUse)
         chargeCard()
+        // as ScooterApp.locationSelected is an instance of chargingStation, it can call its methods
+        // if statement needed otherwise chargeScooter() might throw an error
+        // at the fact that there are no scooters to charge
+        if (ScooterApp.scooterInUse.battery < 100){
+            ScooterApp.locationSelected.chargeScooter()
+        }
         ScooterApp.scooterInUse = undefined;
         ScooterApp.locationSelected = undefined;
     }
