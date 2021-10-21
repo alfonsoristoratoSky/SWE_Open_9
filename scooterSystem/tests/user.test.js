@@ -28,6 +28,11 @@ describe("User class", () => {
         .toThrowError('Expiry Date must be in the format: MMYY')
     })
 
+    test('expiry date must be higher or equal than current date', () => {
+        expect(() => new User('Alfo', '1991-04-03', 4444333322221111, '0921', '333'))
+        .toThrowError('You need to use a card with a valid expiration date')
+    })
+
     test('expiry date cannot be a number with leading 0s', () => {
         expect(() => new User('Alfo', '1991-04-03', 4444333322221111, parseInt('0122'), '333'))
         .toThrowError('Expiry Date must be in the format: MMYY')

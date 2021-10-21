@@ -6,7 +6,7 @@ const Scooter = require('../src/scooter');
 
 describe('Scooter app class', () => {
     beforeAll(() => {
-        ScooterApp.registerUser('Alf', '2000-01-01', 4444333322221111, 1022, 111)
+        ScooterApp.registerUser('Alf', '2000-01-01', 4444333322221111, '1022', '111')
         ScooterApp.registerMaintenance('Mark', '2000-09-09', 12123344)
         charg1 = new ChargingStation('City Center')
         charg2 = new ChargingStation('Beach')
@@ -46,11 +46,11 @@ describe('Scooter app class', () => {
     })
 
     test('user must be 18 yo', () => {
-        expect(() => ScooterApp.registerUser('Mark', '2005-10-10', 4444333322221111, 1022, 344)).toThrowError('You must be 18 years old to use this app')
+        expect(() => ScooterApp.registerUser('Mark', '2005-10-10', 4444333322221111, '1022', '344')).toThrowError('You must be 18 years old to use this app')
     })
 
     test('expiry date of the card registered along the user, needs to be higher than actual date', () => {
-        expect(() => ScooterApp.registerUser('Mark', '2005-10-10', 4444333322221111, 1020, 344)).toThrowError('You need to use a card with a valid expiration date')
+        expect(() => ScooterApp.registerUser('Mark', '2005-10-10', 4444333322221111, '1020', '344')).toThrowError('You need to use a card with a valid expiration date')
     })
 
     test('app can register an user', () => {
@@ -61,7 +61,7 @@ describe('Scooter app class', () => {
                 "user":
                 {
                     "cardDetails":
-                        { "CVC": 111, "Card number": 4444333322221111, "Expiry date": 1022 },
+                        { "CVC": '111', "Card number": 4444333322221111, "Expiry date": '1022' },
                     "dob": "2000-01-01",
                     "name": "Alf",
                     "proofOfIdentity": {}
@@ -82,7 +82,7 @@ describe('Scooter app class', () => {
                 "user":
                 {
                     "cardDetails":
-                        { "CVC": 111, "Card number": 4444333322221111, "Expiry date": 1022 },
+                        { "CVC": '111', "Card number": 4444333322221111, "Expiry date": '1022' },
                     "dob": "2000-01-01",
                     "name": "Alf",
                     "proofOfIdentity": {}
