@@ -12,7 +12,7 @@ console.log(app.users)
 
 //Register maintenance
 app.registerMaintenance('Mark', '1999-07-13', 12123344);
-// prove that user is stored in users array
+// prove that maintenance is stored in maintenance array
 console.log('MAINTENANCE')
 console.log(app.maintenance)
 
