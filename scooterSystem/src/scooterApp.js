@@ -196,7 +196,7 @@ function preauthCard(){
 
 function chargeCard(){
     let kmUsed = ScooterApp.scooterInUse.distanceTravelled
-    console.log(`Card ${ScooterApp.userUsing.user.cardDetails['Card number']} of ${ScooterApp.userUsing.user.name} has been charged for £${kmUsed}, as you have travelled ${kmUsed} Kms`)
+    console.log(`Card ${ScooterApp.userUsing.user.cardDetails['Card number']} of ${ScooterApp.userUsing.user.name} has been charged for £${kmUsed}, as you have travelled ${kmUsed} Kms, the difference £${50-kmUsed} has been released`)
 }
 
 function getAge(dateString) {

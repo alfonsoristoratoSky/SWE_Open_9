@@ -5,7 +5,7 @@ const app = require('./scooterApp'); //ScooterApp was too long
 
 
 //Register users
-app.registerUser('Alfo', '1991-04-03', 4444333322221111, 1222, 432);
+app.registerUser('Alfo', '1991-04-03', 4444333322221111, '1222', '432');
 // prove that user is stored in users array
 console.log('USERS')
 console.log(app.users)
