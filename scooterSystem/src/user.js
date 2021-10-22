@@ -12,7 +12,7 @@ class User extends Person{
             throw new Error ('Expiry Date must be in the format: MMYY')
         }
 
-        if (cvc == undefined || cvc.toString().length != 3 || typeof cvc !== 'string'){
+        if (cvc == undefined || cvc.length != 3 || typeof cvc != 'string'){
             throw new Error ('CVC must be of 3 digits only')
         }
 

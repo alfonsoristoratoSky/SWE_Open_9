@@ -20,8 +20,9 @@ class ChargingStation{
         }
     }
     chargeScooter(){        
-        
-        console.log(`charging 1.2% of battery per second`)
+        // 2 hrs max charging time = 0.83333% charging per minute, but for the sake of running the app in main.js
+        // I used fictional time :)!
+        console.log(`charging 1% of battery per second`)
         let toCharge = this.scootersInLocation.find(obj => obj.battery < 100)
         if (toCharge == undefined || toCharge == null){
             throw new Error ('There are no scooters to charge')

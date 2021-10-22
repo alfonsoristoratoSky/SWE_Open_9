@@ -31,7 +31,7 @@ class Scooter {
             /* istanbul ignore else */
         }
 
-            , 1000); // ideally this is set to 10 sec, but for the sake of the 
+            , 1000); // ideally this is set to around 10 secs, but for the sake of the 
         // programme running, it's set to 1 sec
     }
 

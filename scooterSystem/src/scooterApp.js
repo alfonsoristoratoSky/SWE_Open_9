@@ -169,7 +169,8 @@ class ScooterApp{
 
     static async repairScooter(location, firstMaintAvailable){
         let scooter = ScooterApp.chargingStations.find(obj => obj.location === location).scootersInLocation.find(obj => obj.isUnderMaintenance === true)
-        console.log(`${firstMaintAvailable.name}: I located Scooter ${scooter.id} at '${location}'' and will need 20 seconds to repair`)
+        console.log(`${firstMaintAvailable.name}: I located Scooter ${scooter.id} at '${location}'' and will need 20 seconds to repair`) 
+        // if you want to change the time it takes to repair a scooter, increase the counter and the console.log above
         let counter = 20;
         await new Promise(() => {
             let interv = setInterval(()=>{
