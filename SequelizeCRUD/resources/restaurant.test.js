@@ -3,11 +3,11 @@ const {
     Restaurant,
     Menu,
     MenuItem,
-  } = require('../sequelize-connect');
-
+  } = require('./../sequelize-connect');
 
 describe('Testing restaurant db', () => {
     beforeAll(async () => {
+
         await connection.sync()
         // create rows
         
