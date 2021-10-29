@@ -22,7 +22,6 @@ app.get('/api/?(restaurants||menus||menuItems)', async (req, res) => {
         const dbEntry = await dbReadAll(req.path);
         // 200 = success
         res.status(200).send(dbEntry);
-
     } catch (e) {
         res.status(400).send(e.message);
     }
