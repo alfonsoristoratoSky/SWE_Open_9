@@ -8,7 +8,7 @@ const restaurantModel = {
     allowNull: false,
     validate:{
       notEmpty: true,
-      is: ["^[a-z]+$",'i'],
+      is: ["^[a-zA-Z0-9_ ]*$"],
     }
   },
   imagelink: {
@@ -16,7 +16,7 @@ const restaurantModel = {
     allowNull: false,
     validate:{
       notEmpty: true,
-      is: ["^[a-z]+$",'i'],
+      is: ["^[a-zA-Z0-9_ ]*$"],
     }
   },
   
@@ -28,7 +28,7 @@ const menuModel = {
     allowNull: false,
     validate:{
       notEmpty: true,
-      is: ["^[a-z]+$",'i'],
+      is: ["^[a-zA-Z0-9_ ]*$"],
     }
     
   },
@@ -40,7 +40,7 @@ const menuItemModel = {
     allowNull: false,
     validate:{
       notEmpty: true,
-      is: ["^[a-z]+$",'i'],
+      is: ["^[a-zA-Z0-9_ ]*$"],
     }
   },
   price: {

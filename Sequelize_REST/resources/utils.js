@@ -1,33 +1,93 @@
 
 const { Menu, MenuItem, Restaurant } = require('../sequelize-connect');
+function stringContainsNumber(input) {
+    return /\d/.test(input);
+}
 
-function switchParams(params){
-    if (params.startsWith('/api/restaurants')){
+function switchParams(params) {
+    if (params.match(/^\/api\/restaurants?(\/[0-9]+)?$/)) {
         params = Restaurant
     }
-    else if(params.startsWith('/api/menus')){
+    else if (params.match(/^\/api\/restaurants\/[0-9]+\/menus?(\/[0-9]+)?$/)) {
+        params = Menu;
+    }
+    else if (params.match(/^\/api\/menus?(\/[0-9]+)?$/)) {
         params = Menu
     }
-    else if(params.startsWith('/api/menuItems')){
-        params = MenuItem
+    else if (params.match(/^\/api\/menus\/[0-9]+\/menuItems?(\/[0-9]+)?$/)) {
+        params = MenuItem;
     }
-    
-    return params;
+    else if (params.match(/^\/api\/menuItems?(\/[0-9]+)?$/)) {
+        params = MenuItem
+    } return params;
+
 }
 
-const dbReadAll = async (reqPath) => {
+const dbRead = async (reqPath, reqParamsId) => {
     const dbTable = switchParams(reqPath)
-    
-    // find all rows in the database matching (all in this case)
-    const toReturn = await dbTable.findAll({})
+    let toReturn;
+    if (reqPath.endsWith("s") && !stringContainsNumber(reqPath)) {
+        // find all rows in the database matching (all in this case)
+        toReturn = await dbTable.findAll({})
+
+    }
+    else if (reqPath.endsWith("s") && stringContainsNumber(reqPath)) {
+
+        // find all rows in the database matching, where foreignKey ID matches
+        if (dbTable == Menu) {
+            toReturn = await dbTable.findAll({
+                where: {
+                    RestaurantId: reqParamsId
+                }
+            })
+        }
+        else if (dbTable == MenuItem) {
+            toReturn = await dbTable.findAll({
+                where: {
+                    MenuID: reqParamsId
+                }
+            })
+        }
+
+
+    }
+    else {
+        // find the row that matches the ID
+        // let lastIndex = reqPath.lastIndexOf('/') + 1;
+        // toReturn = await dbTable.findByPk(parseInt(reqPath.substring(lastIndex)))
+        toReturn = await dbTable.findByPk(reqParamsId)
+        if (toReturn instanceof dbTable === false) {
+            throw new Error(`There's no ${dbTable.name} with an id of ${reqParamsId}`)
+        }
+    }
+
     return toReturn;
 }
 
-const dbCreate = async (reqPath, reqBody) => {
+const dbCreate = async (reqPath, reqBody, reqParamsId) => {
     const dbTable = switchParams(reqPath)
-    // create a row in the database using sequelize create method
-    const toReturn = await dbTable.create(reqBody)
+    let toReturn;
+
+    if (reqPath.endsWith("s") && !stringContainsNumber(reqPath)) {
+        // create a row in the database using sequelize create method
+        toReturn = await dbTable.create(reqBody)
+    }
+    else if (reqPath.endsWith("s") && stringContainsNumber(reqPath)) {
+        if (dbTable == Menu) {
+            reqBody.RestaurantId = reqParamsId
+        }
+        else if (dbTable == MenuItem) {
+            reqBody.MenuId = reqParamsId
+        }
+        toReturn = await dbTable.create(reqBody)
+    }
+    else {
+        throw new Error("Use a valid url to create your row")
+    }
+
+
     return toReturn;
+
 }
 
 const dbDelete = async (reqPath, reqParamsId) => {
@@ -48,5 +108,5 @@ const dbUpdate = async (reqPath, reqParamsId, reqBody) => {
     return toReturn;
 }
 
-module.exports = {dbReadAll, dbCreate, dbDelete, dbUpdate}
+module.exports = { dbRead, dbCreate, dbDelete, dbUpdate }
 

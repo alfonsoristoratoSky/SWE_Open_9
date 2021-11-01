@@ -1,15 +1,15 @@
 const express = require('express');
-const { connection } = require('./sequelize-connect')
+const { connection, Menu } = require('./sequelize-connect')
 const app = express()
 const port = 3002
-const {dbReadAll, dbCreate, dbDelete, dbUpdate} = require('./resources/utils')
+const {dbRead, dbCreate, dbDelete, dbUpdate} = require('./resources/utils')
 
 //Body parser
 app.use(express.json())
 
-app.post('/api/?(restaurants||menus||menuItems)', async (req, res) => {
+app.post('/api/?(restaurants||menus||menuItems)?/:id/?(restaurants||menus||menuItems)', async (req, res) => {
     try {        
-        const dbEntry = await dbCreate(req.path, req.body);
+        const dbEntry = await dbCreate(req.path, req.body, req.params.id);
         // 201 = created a resource
         res.status(201).send(dbEntry);
     } catch (e) {
@@ -17,9 +17,9 @@ app.post('/api/?(restaurants||menus||menuItems)', async (req, res) => {
     }
 });
 
-app.get('/api/?(restaurants||menus||menuItems)', async (req, res) => {
+app.get('/api/?(restaurants||menus||menuItems)/:id/?(restaurants||menus||menuItems)', async (req, res) => {
     try {        
-        const dbEntry = await dbReadAll(req.path);
+        const dbEntry = await dbRead(req.path, req.params.id);
         // 200 = success
         res.status(200).send(dbEntry);
     } catch (e) {
