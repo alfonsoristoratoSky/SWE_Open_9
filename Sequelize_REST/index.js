@@ -1,5 +1,5 @@
 const express = require('express');
-const { connection, Menu } = require('./sequelize-connect')
+const { connection } = require('./sequelize-connect')
 const app = express()
 const port = 3002
 const {dbRead, dbCreate, dbDelete, dbUpdate} = require('./resources/utils')
@@ -46,14 +46,6 @@ app.put('/api/?(restaurants||menus||menuItems)/:id', async (req, res) => {
         res.status(400).send(e.message);
     }
 });
-
-// 1. create an endpoint that will delete a restaurant by ID (HTTP Method = delete)
-
-// 2. create an endpoint that will update a restaurant by ID (HTTP Method = put)
-
-// 3. create a suite of menu and menu item routes that will CRUD each resource
-
-// 4. find a way to relate the menu items to the menu and the menu to the restaurant
 
 /**
  * Synchronize all models with db

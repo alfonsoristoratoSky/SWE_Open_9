@@ -19,46 +19,50 @@ function switchParams(params) {
     }
     else if (params.match(/^\/api\/menuItems?(\/[0-9]+)?$/)) {
         params = MenuItem
-    } return params;
+    } 
+    else{
+        throw new Error ('Use a valid URL')
+    }
+    return params;
 
 }
 
 const dbRead = async (reqPath, reqParamsId) => {
     const dbTable = switchParams(reqPath)
     let toReturn;
+    let whereParams;
     if (reqPath.endsWith("s") && !stringContainsNumber(reqPath)) {
         // find all rows in the database matching (all in this case)
-        toReturn = await dbTable.findAll({})
+        toReturn = await dbTable.findAll()
 
     }
     else if (reqPath.endsWith("s") && stringContainsNumber(reqPath)) {
-
         // find all rows in the database matching, where foreignKey ID matches
         if (dbTable == Menu) {
-            toReturn = await dbTable.findAll({
+            whereParams = {
                 where: {
-                    RestaurantId: reqParamsId
-                }
-            })
+                RestaurantId: reqParamsId
+            }}            
         }
         else if (dbTable == MenuItem) {
-            toReturn = await dbTable.findAll({
+            whereParams = {
                 where: {
-                    MenuID: reqParamsId
-                }
-            })
+                MenuId: reqParamsId
+            }}
         }
-
-
+        toReturn = await dbTable.findAll(whereParams)
     }
     else {
         // find the row that matches the ID
         // let lastIndex = reqPath.lastIndexOf('/') + 1;
         // toReturn = await dbTable.findByPk(parseInt(reqPath.substring(lastIndex)))
         toReturn = await dbTable.findByPk(reqParamsId)
-        if (toReturn instanceof dbTable === false) {
-            throw new Error(`There's no ${dbTable.name} with an id of ${reqParamsId}`)
-        }
+        // if(toReturn == null){
+        //     throw new Error ('Use a valid URL')
+        // }
+    }
+    if (toReturn == null) {
+        throw new Error(`There's no ${dbTable.name} with an id of ${reqParamsId}`)
     }
 
     return toReturn;
@@ -82,7 +86,7 @@ const dbCreate = async (reqPath, reqBody, reqParamsId) => {
         toReturn = await dbTable.create(reqBody)
     }
     else {
-        throw new Error("Use a valid url to create your row")
+        throw new Error("Use a valid url to create your entry")
     }
 
 
