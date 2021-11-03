@@ -11,6 +11,7 @@ app.set('view engine', 'handlebars');
 // app.use(express.bodyParser())
 app.use(methodOverride('_method'))
 // serve static assets from the public/ folder
+
 app.use(express.static('public'));
 app.use(express.json())
 // support urlencoded bodies (e.g. form POST)
