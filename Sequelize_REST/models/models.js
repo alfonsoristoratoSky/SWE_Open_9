@@ -16,7 +16,7 @@ const restaurantModel = {
     allowNull: false,
     validate:{
       notEmpty: true,
-      is: ["^[a-zA-Z0-9_ ]*$"],
+      isURL: true,
     }
   },
   

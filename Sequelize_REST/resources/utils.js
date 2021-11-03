@@ -56,7 +56,7 @@ const dbRead = async (reqPath, reqParamsId) => {
         // find the row that matches the ID
         // let lastIndex = reqPath.lastIndexOf('/') + 1;
         // toReturn = await dbTable.findByPk(parseInt(reqPath.substring(lastIndex)))
-        toReturn = await dbTable.findByPk(reqParamsId)
+        toReturn = await dbTable.findAll({where:{id:reqParamsId}})
         // if(toReturn == null){
         //     throw new Error ('Use a valid URL')
         // }

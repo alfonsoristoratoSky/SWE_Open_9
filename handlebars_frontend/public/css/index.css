@@ -1,0 +1,30 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  font-family: 'Open Sans', serif;
+  background-color: ivory;
+}
+.container-img {
+  height: 150px;
+  width: auto;
+}
+
+
+
+@media screen and (max-width: 1024px) {
+  
+}
+
+@media screen and (min-width: 1024px) {
+  
+}

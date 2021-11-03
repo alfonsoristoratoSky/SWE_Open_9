@@ -1,0 +1,30 @@
+<div class="panel panel-default col-md-6">
+
+  <div class='row panel-heading'>
+    <h3 class='row panel-title'>{{this.name}}</h3>
+  </div>
+  
+  
+  <div class='row panel-body'>
+    <div class="col-md-6">
+      Some description
+    </div>
+    <img class="col-md-6 container-img" src='{{this.imagelink}}' alt='{{this.name}}'/>
+  </div>
+  <div class="row panel-footer">
+    <a href='/restaurants/{{this.id}}'>
+      View
+    </a>
+    <a
+      href='/restaurants/{{this.id}}/edit'
+      data-id='{{this.id}}'
+      
+    >
+      Edit
+    </a>
+    <a type='button' href="/restaurants/{{this.id}}/delete" data-id='{{this.id}}'>
+      Delete
+    </a>
+  </div>
+</div>
+

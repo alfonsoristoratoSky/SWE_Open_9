@@ -1,0 +1,21 @@
+<div>
+    <form method="post" action="/restaurants/{{restaurant.0.id}}/edit?_method=PUT">
+    <div>
+        <input type="text" name="name" id="" 
+        value="{{restaurant.0.name}}"> Name
+    </div>
+    <div>
+        <input type="text" name="imagelink" id=""
+        value="{{restaurant.0.imagelink}}"> Image Link
+    </div>
+        
+        
+
+        <div> Click this to modify your Restaurant
+    
+            <input type="submit" value="Submit">
+    
+        </input>
+        </div>
+    </form>
+</div>
