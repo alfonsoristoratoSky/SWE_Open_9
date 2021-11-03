@@ -56,10 +56,7 @@ const restaurantsList = `${config.url.restaurants}`; // http://localhost:3002/ap
         },
         body: JSON.stringify(req.body), // data comes from a form
       });
-      const response = await fetch(restaurantsList+`/${req.params.id}`)
-      const restaurants = await response.json();
-      
-      res.render('restaurants', {restaurants});
+      res.redirect('/restaurants');
     } catch (error) {
       return next(error);
     }
@@ -80,35 +77,28 @@ const restaurantsList = `${config.url.restaurants}`; // http://localhost:3002/ap
     try {
       await fetch(restaurantsList+`/${req.params.id}`, {
         method: 'DELETE'
-      });
-
-      const response = await fetch(restaurantsList)
-      const restaurants = await response.json();
-      
-      res.render('restaurants', {restaurants});
+      });      
+      res.redirect('/restaurants');
     } catch (error) {
       return next(error);
     }
   });
   //CREATE ONE
-  // Router.post('/create', async (req, res, next) => {
-  //   try {
-  //     await fetch(restaurantsList, {
-  //       method: 'post',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify(req.body), // data comes from a form
-  //     });
+  Router.post('/create', async (req, res, next) => {
+    try {
+      await fetch(restaurantsList, {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(req.body), // data comes from a form
+      });
 
-  //     const response = await fetch(restaurantsList)
-  //     const restaurants = await response.json();
-      
-  //     res.render('restaurants', {restaurants});
-  //   } catch (error) {
-  //     return next(error);
-  //   }
-  // });  
+      res.redirect('/restaurants');
+    } catch (error) {
+      return next(error);
+    }
+  });  
 
 
 module.exports = Router;
