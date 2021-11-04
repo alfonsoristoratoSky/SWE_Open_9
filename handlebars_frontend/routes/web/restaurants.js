@@ -21,7 +21,17 @@ Router.get('/', async (req, res, next) => {
     const menuItems = allMenuItems.filter(el => 
       menus.some(menEl => menEl.id === el.MenuId)
       || el.MenuId === null)
-
+    
+    menus.forEach(element => {
+      element.itemsCount = 0;
+      element.totalCost = 0;
+      menuItems.forEach(element2 => {
+        if(element2.MenuId === element.id){
+          element.itemsCount++;
+          element.totalCost += element2.price
+        }
+      });
+    });
 
     res.render('restaurants', { restaurants, menus, menuItems });
   } catch (error) {
@@ -57,7 +67,17 @@ Router.get('/:id', async (req, res, next) => {
       const menus = await responseMenus.json();
       const allMenuItems = await responseMenuItems.json();
       const menuItems = allMenuItems.filter(el => menus.some(menEl => menEl.id === el.MenuId))
-
+      
+      menus.forEach(element => {
+        element.itemsCount = 0;
+        element.totalCost = 0;
+        menuItems.forEach(element2 => {
+          if(element2.MenuId === element.id){
+            element.itemsCount++;
+            element.totalCost += element2.price
+          }
+        });
+      });
       res.render('singleRestaurant', { restaurant, menus, menuItems });
     }
 
