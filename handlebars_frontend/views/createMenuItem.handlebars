@@ -1,0 +1,44 @@
+<h2>Create a new Menu Item
+    {{#if paramsId.length }} in a menu of {{restaurants.0.name}}
+    {{/if}}
+</h2>
+{{#if menus.length }}
+<div>
+    <form method="post" action="/restaurants/createMenuItem">
+        <div>
+            <input type="text" name="name" id="" value=""> Name
+        </div>
+        <div>
+            <input type="text" name="price" id="" value=""> Price
+        </div>
+        <div>
+
+            <select type="text" name="MenuId">
+                {{#if paramsId.length }}
+                {{else}}
+                <option value="unassigned">Unassigned</option>
+                {{/if}}
+                {{#if menus.length }}
+                {{#each menus }}
+                <option value="{{this.id}}">{{this.title}}</option>
+                {{/each}}
+                {{/if}}
+            </select>
+            Menu Name
+
+        </div>
+
+
+
+        <div> Click this to create your Menu Item
+
+            <input type="submit" value="Submit">
+
+
+        </div>
+    </form>
+</div>
+{{else}}
+<div>There is no menu in {{restaurants.0.name}}, which means you can't insert a menu item through here.</div>
+<div>Go back to {{restaurants.0.name}} and create a menu first, otherwise create a menu item via the main page if intend not to assign it to a menu</div>
+{{/if}}

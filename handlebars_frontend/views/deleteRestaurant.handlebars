@@ -1,7 +1,6 @@
-<h2>Delete</h2>
-<h4>Are you sure you want to delete {{restaurant.0.name}}?</h4>
+<h2>You are deleting {{restaurant.0.name}}</h2>
 <dl>
-    <dt>name</dt>
+    <dt>Name</dt>
     <dd>{{restaurant.0.name}}</dd>
     <dt>Image</dt>
     <dd>
@@ -9,5 +8,10 @@
     </dd>
 </dl>
 <form method="post" action="/restaurants/{{restaurant.0.id}}/delete?_method=DELETE">
-<input type="submit" value="Delete">
+<div> Click this to delete your Restaurant
+
+            <input type="submit" value="Submit">
+
+
+        </div>
 </form>

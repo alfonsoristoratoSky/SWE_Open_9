@@ -4,8 +4,11 @@
     <td>£{{this.price}}</td>
     {{#if this.MenuId }}
       <td>{{this.MenuId}}</td>
+            {{else}}
+      <td>{{this.MenuId}}</td>
       {{/if}}
+
     <td>
-        <i class="far fa-edit"></i>
-        <i class="far fa-trash-alt"></i>
+        <a href='/restaurants/editMenuItem/{{this.id}}' data-id='{{this.id}}'><i class="far fa-edit"></i></a>
+        <a href='/restaurants/deleteMenuItem/{{this.id}}' data-id='{{this.id}}'><i class="far fa-trash-alt"></i></a>
     </td>

@@ -1,12 +1,14 @@
+<h2>You are editing {{restaurant.0.name}}</h2>
 <div>
     <form method="post" action="/restaurants/{{restaurant.0.id}}/edit?_method=PUT">
     <div>
         <input type="text" name="name" id="" 
         value="{{restaurant.0.name}}"> Name
     </div>
-    <div>
-        <input type="text" name="imagelink" id=""
-        value="{{restaurant.0.imagelink}}"> Image Link
+
+        <div>
+        <textarea name="imagelink" 
+        rows="3" cols="19 px" >{{restaurant.0.imagelink}}</textarea> Image Link
     </div>
     {{!-- <div>
         <img class="round-image" src='{{restaurant.0.imagelink}}' alt='{{restaurant.0.name}}'/>

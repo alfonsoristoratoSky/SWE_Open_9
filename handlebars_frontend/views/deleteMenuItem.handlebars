@@ -1,0 +1,15 @@
+<h2>You are deleting {{menuItem.0.name}}</h2>
+<dl>
+    <dt>Name</dt>
+    <dd>{{menuItem.0.name}}</dd>
+    <dt>Price</dt>
+    <dd>{{menuItem.0.price}}</dd>
+</dl>
+<form method="post" action="/restaurants/deleteMenuItem/{{menuItem.0.id}}?_method=DELETE">
+<div> Click this to delete your Menu Item
+
+            <input type="submit" value="Submit">
+
+
+        </div>
+</form>

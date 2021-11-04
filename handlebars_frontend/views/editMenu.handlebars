@@ -1,0 +1,31 @@
+<h2>You are editing {{menu.0.title}}</h2>
+<div>
+    <form method="post" action="/restaurants/editMenu/{{menu.0.id}}?_method=PUT">
+        <div>
+            <input type="text" name="title" id="" value="{{menu.0.title}}"> Title
+        </div>
+        <div>
+            
+            <select type="text" name="RestaurantId">
+                <option value="unassigned">Unassigned</option>
+                {{#if restaurants.length }}
+                {{#each restaurants }}
+                <option value="{{this.id}}">{{this.name}}</option>
+                {{/each}}
+                {{/if}}
+            </select>
+            Restaurant Name
+        </div>
+
+
+
+
+
+        <div> Click this to modify your Menu
+
+            <input type="submit" value="Submit">
+
+            </input>
+        </div>
+    </form>
+</div>

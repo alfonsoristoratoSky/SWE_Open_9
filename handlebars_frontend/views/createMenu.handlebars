@@ -1,0 +1,35 @@
+<h2>Create a new Menu
+    {{#if paramsId.length }} in {{restaurants.0.name}}
+    {{/if}}
+</h2>
+
+<div>
+    <form method="post" action="/restaurants/createMenu">
+        <div>
+            <input type="text" name="title" id="" value=""> Title
+        </div>
+        <div>
+            {{#if paramsId.length }}
+            {{else}}
+            <select type="text" name="RestaurantId">
+                <option value="unassigned">Unassigned</option>
+                {{#if restaurants.length }}
+                {{#each restaurants }}
+                <option value="{{this.id}}">{{this.name}}</option>
+                {{/each}}
+                {{/if}}
+            </select>
+            Restaurant Name
+            {{/if}}
+        </div>
+
+
+
+        <div> Click this to create your Menu
+
+            <input type="submit" value="Submit">
+
+            
+        </div>
+    </form>
+</div>
