@@ -3,14 +3,25 @@ const Router = express.Router();
 const fetch = require('node-fetch');
 const config = require('../../config');
 const restaurantsList = `${config.url.restaurants}`; // http://localhost:3002/api/restaurants
+const menusList = `${config.url.menus}`;
+const menuItemsList = `${config.url.menuItems}`;
 
+const i = [1,2]
+i.filter(el => el.id == null)
 
   //READ ALL
   Router.get('/', async (req, res, next) => {
     try {
-      const response = await fetch(restaurantsList);
-      const restaurants = await response.json();
-      res.render('restaurants', { restaurants });
+      const responseRest = await fetch(restaurantsList);
+      const responseMenus = await fetch(menusList);
+      const responseMenuItems = await fetch(menuItemsList);
+
+      const restaurants = await responseRest.json();
+      const allMenus = await responseMenus.json();
+      const menus = allMenus.filter(el => el.RestaurantId === null)
+      const allMenuItems = await responseMenuItems.json();
+      const menuItems = allMenuItems.filter(el => el.MenuId === null)
+      res.render('restaurants', { restaurants, menus, menuItems });
     } catch (error) {
       return next(error);
     }
@@ -25,9 +36,17 @@ const restaurantsList = `${config.url.restaurants}`; // http://localhost:3002/ap
 
 
       else{
-        const response = await fetch(restaurantsList+`/${req.params.id}`)
-        const restaurants = await response.json();
-        res.render('restaurants', {restaurants});
+        const responseRest = await fetch(restaurantsList+`/${req.params.id}`);
+        const responseMenus = await fetch(restaurantsList+`/${req.params.id}/menus`);        
+        const responseMenuItems = await fetch(menuItemsList);
+        
+
+        const restaurant = await responseRest.json();
+        const menus = await responseMenus.json();
+        const allMenuItems = await responseMenuItems.json();
+        const menuItems = allMenuItems.filter(el => menus.some(menEl => menEl.id === el.MenuId))
+        
+        res.render('singleRestaurant', {restaurant, menus, menuItems});
       }
       
     } catch (error) {

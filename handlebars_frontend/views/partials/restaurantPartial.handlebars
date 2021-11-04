@@ -1,0 +1,27 @@
+
+
+  <div class='row card-header'>
+    <h5 class='row card-title'>{{this.name}}</h5>
+  </div>
+
+
+  <div class='row card-body align-items-center'>
+    <div class="col-md-6">
+      Some description
+    </div>
+    <img class="col-md-6 round-image" src='{{this.imagelink}}' alt='{{this.name}}' />
+  </div>
+  <div class="row card-footer">
+    <div class="btn-group" role="group" aria-label="Basic outlined example">
+      <a class="btn btn-outline-primary" href='/restaurants/{{this.id}}'>
+        View
+      </a>
+      <a class="btn btn-outline-primary" href='/restaurants/{{this.id}}/edit' data-id='{{this.id}}'>
+        Edit
+      </a>
+      <a class="btn btn-outline-primary" type='button' href="/restaurants/{{this.id}}/delete" data-id='{{this.id}}'>
+        Delete
+      </a>
+    </div>
+
+  </div>

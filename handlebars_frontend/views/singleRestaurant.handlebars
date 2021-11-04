@@ -1,36 +1,33 @@
 <div class="row">
-  <h2>Restaurants</h2>
-  <div class="col-sm-12">
-    <a href='/restaurants/create'>Add New Restaurant</a>
-  </div>
+    <h2>You are viewing {{restaurant.0.name}}</h2>
 </div>
-<div class="row">
-  
-  {{#if restaurants.length }}
-  {{#each restaurants }}
-  <div class="card col-md-6">{{> restaurantPartial this }}</div>
-  {{/each}}
-
-  {{else}}
-  <p>No restaurants left :(</p>
-  {{/if}}
-
-  {{#if restaurants.[1]}}
-
-  {{else}}
-  <div class="row col-sm-12">
-    <a href="/restaurants"> Back to list</a>
+<div class="row justify-content-center">
+<div class="card col-md-6">
+  <div class='row card-body align-items-center'>
+    <div class="col-md-6">
+      Some description
+    </div>
+    <img class="col-md-6 round-image " src='{{restaurant.0.imagelink}}' alt='{{restaurant.0.name}}' />
   </div>
-  {{/if}}
+    <div class="row card-footer">
+    <div class="btn-group" role="group" aria-label="Basic outlined example">
 
-</div>
+      <a class="btn btn-outline-primary" href='/restaurants/{{restaurant.0.id}}/edit' data-id='{{restaurant.0.id}}'>
+        Edit
+      </a>
+      <a class="btn btn-outline-primary" type='button' href="/restaurants/{{restaurant.0.id}}/delete" data-id='{{restaurant.0.id}}'>
+        Delete
+      </a>
+    </div>
 
-<div class="row">
+  </div>
+  </div>
+  <div class="row">
 
 <div class="col-md-7">
 
 
-  <h2>Menus not assigned</h2>
+  <h2>Menus</h2>
 
 <div class="col-sm-12">
   <a href='/restaurants/create'>Add New Menu</a>
@@ -51,7 +48,7 @@
       {{> menuPartial this }}
       {{/each}}
       {{else}}
-      <p>No unassigned Menus left - YAY!</p>
+      <p>No unassigned menus</p>
       {{/if}}
     </tbody>
   </table>
@@ -60,7 +57,7 @@
 
 <div class="col-md-5">
 
-  <h2>Menu Items not assigned</h2>
+  <h2>Menu Items</h2>
 
 <div class="col-sm-12">
   <a href='/restaurants/create'>Add New Menu Item</a>
@@ -71,6 +68,7 @@
         <th scope="col">ID</th>
         <th scope="col">Name</th>
         <th scope="col">Price</th>
+        <th scope="col4">Menu Id</th>          
         <th scope="col">Actions</th>
       </tr>
     </thead>
@@ -80,7 +78,7 @@
       {{> menuItemPartial this }}
       {{/each}}
       {{else}}
-      <p>No unassigned Menu Items left - YAY!</p>
+      <p>No assigned menu item</p>
       {{/if}}
     </tbody>
   </table>
