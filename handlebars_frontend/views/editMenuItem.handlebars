@@ -5,8 +5,11 @@
             <input type="text" name="name" id="" value="{{menuItem.0.name}}"> Name
         </div>
         <div>
+            <input type="text" name="price" id="" value="{{menuItem.0.price}}"> Price
+        </div>        
+        <div>
             
-            <select type="text" name="RestaurantId">
+            <select type="text" name="MenuId">
                 <option value="unassigned">Unassigned</option>
                 {{#if menus.length }}
                 {{#each menus }}
@@ -29,3 +32,4 @@
         </div>
     </form>
 </div>
+{{> backToRestaurants}}

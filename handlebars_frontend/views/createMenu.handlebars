@@ -10,6 +10,7 @@
         </div>
         <div>
             {{#if paramsId.length }}
+            <input type="hidden" name="RestaurantId" value="{{restaurants.0.id}}">
             {{else}}
             <select type="text" name="RestaurantId">
                 <option value="unassigned">Unassigned</option>
@@ -33,3 +34,4 @@
         </div>
     </form>
 </div>
+{{> backToRestaurants}}

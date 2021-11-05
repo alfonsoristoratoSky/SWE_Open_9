@@ -1,9 +1,14 @@
 const express = require('express');
+const fetch = require('node-fetch');
 const app = express();
 var methodOverride = require('method-override')
 const port = 8001;
 const restaurantRoutes = require('./routes/web/restaurants');
 const handlebars = require('./handlebars');
+const config = require('./config');
+const restaurantsList = `${config.url.restaurants}`; // http://localhost:3002/api/restaurants
+const menusList = `${config.url.menus}`;
+const menuItemsList = `${config.url.menuItems}`;
 
 // set-up view "engine" - res.render
 app.engine('handlebars', handlebars);
@@ -24,8 +29,14 @@ app.use('/restaurants', restaurantRoutes);
 // app.use('/menus', menuRoutes);
 
 // serve an index page
-app.get('/', (req, res) => {
-  res.render('index');
+app.get('/', async (req, res) => {
+  const responseRest = await fetch(restaurantsList);
+    const responseMenus = await fetch(menusList);
+    const responseMenuItems = await fetch(menuItemsList);
+    const restaurants = await responseRest.json();
+    const allMenus = await responseMenus.json();
+    const allMenuItems = await responseMenuItems.json();
+  res.render('index', {restaurants, allMenus, allMenuItems});
 });
 
 app.listen(port, () => {
